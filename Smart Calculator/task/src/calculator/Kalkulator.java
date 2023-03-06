@@ -7,14 +7,12 @@ import java.util.regex.Pattern;
 public class Kalkulator {
     private final String ZNAJDZ_REGEX = "(?i)^[a-z]+$";
     final String OPERAND = "(?i)^([+-]?\\d+|[a-z]+)$";
-
     private final Map<String, Integer> KOLEJNOSC = Map.of(
             "+", 1,
             "-", 1,
             "/", 2,
             "*", 2
     );
-
     private final Map<String, Integer> zmienne = new HashMap<>();
 
     public void run() {
@@ -43,7 +41,6 @@ public class Kalkulator {
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
-
             input = scanner.nextLine().trim();
             wybor = Wybor.get(input);
         }
@@ -54,15 +51,12 @@ public class Kalkulator {
     private void przypisz(String input) {
         String[] args = input.split("\\s*=\\s*");
         final String PRZYPISZ_REGEX = "^([a-zA-z]+|-?\\d+)$";
-
         if (!args[0].matches(ZNAJDZ_REGEX)) {
             throw new RuntimeException(Error.INVALID_IDENTIFIER.getWiadomosc());
         }
-
         if (args.length > 2 || !args[1].matches(PRZYPISZ_REGEX)) {
             throw new RuntimeException(Error.INVALID_ASSIGNMENT.getWiadomosc());
         }
-
         int wartosc = getValue(args[1]);
         zmienne.put(args[0], wartosc);
     }
